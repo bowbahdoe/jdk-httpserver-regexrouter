@@ -46,13 +46,13 @@ import java.util.regex.Pattern;
 public final class RegexRouter implements HttpHandler {
     private final List<Mapping> mappings;
 
-    private ErrorHandler errorHandler;
-    private HttpHandler notFoundHandler;
+    private final ErrorHandler errorHandler;
+    private final HttpHandler notFoundHandler;
 
     private RegexRouter(Builder builder) {
         this.mappings = builder.mappings;
-        this.errorHandler = new InternalErrorHandler();
-        this.notFoundHandler = new NotFoundHandler();
+        this.errorHandler = builder.errorHandler;
+        this.notFoundHandler = builder.notFoundHandler;
     }
 
     /**
@@ -112,7 +112,7 @@ public final class RegexRouter implements HttpHandler {
         for (final var mapping : this.mappings) {
             final var method = exchange.getRequestMethod();
             final var pattern = mapping.routePattern();
-            final var matcher = pattern.matcher(exchange.getRequestURI().toString());
+            final var matcher = pattern.matcher(exchange.getRequestURI().getPath());
             if (method.equalsIgnoreCase(mapping.method) && matcher.matches()) {
                 new MatcherRouteParams(matcher).set(exchange);
                 try {
@@ -194,6 +194,14 @@ public final class RegexRouter implements HttpHandler {
 
         public Builder head(Pattern routePattern, HttpHandler handler) {
             return route("head", routePattern, handler);
+        }
+
+        public Builder delete(Pattern routePattern, HttpHandler handler) {
+            return route("delete", routePattern, handler);
+        }
+
+        public Builder options(Pattern routePattern, HttpHandler handler) {
+            return route("options", routePattern, handler);
         }
 
         public Builder errorHandler(Function<Throwable, HttpHandler> errorHandler) {
