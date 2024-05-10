@@ -114,6 +114,103 @@ public class RegexRouterTest {
         assertTrue(called.get());
     }
 
+
+    @Test
+    public void postRouteTest() throws Exception {
+        var called = new AtomicBoolean(false);
+        var router = RegexRouter.builder()
+                .post(Pattern.compile("/abc"), exchange -> called.set(true))
+                .build();
+        router.handle(new HttpExchange() {
+            @Override
+            public Headers getRequestHeaders() {
+                return new Headers();
+            }
+
+            @Override
+            public Headers getResponseHeaders() {
+                return new Headers();
+            }
+
+            @Override
+            public URI getRequestURI() {
+                return URI.create("/abc");
+            }
+
+            @Override
+            public String getRequestMethod() {
+                return "POST";
+            }
+
+            @Override
+            public HttpContext getHttpContext() {
+                return null;
+            }
+
+            @Override
+            public void close() {
+
+            }
+
+            @Override
+            public InputStream getRequestBody() {
+                return InputStream.nullInputStream();
+            }
+
+            @Override
+            public OutputStream getResponseBody() {
+                return OutputStream.nullOutputStream();
+            }
+
+            @Override
+            public void sendResponseHeaders(int rCode, long responseLength) throws IOException {
+
+            }
+
+            @Override
+            public InetSocketAddress getRemoteAddress() {
+                return new InetSocketAddress(50);
+            }
+
+            @Override
+            public int getResponseCode() {
+                return 0;
+            }
+
+            @Override
+            public InetSocketAddress getLocalAddress() {
+                return new InetSocketAddress(40);
+            }
+
+            @Override
+            public String getProtocol() {
+                return null;
+            }
+
+            @Override
+            public Object getAttribute(String name) {
+                return null;
+            }
+
+            @Override
+            public void setAttribute(String name, Object value) {
+
+            }
+
+            @Override
+            public void setStreams(InputStream i, OutputStream o) {
+
+            }
+
+            @Override
+            public HttpPrincipal getPrincipal() {
+                return null;
+            }
+        });
+
+        assertTrue(called.get());
+    }
+
     @Test
     public void notFoundTest() throws Exception {
         var called = new AtomicBoolean(false);

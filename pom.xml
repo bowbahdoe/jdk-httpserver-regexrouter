@@ -6,7 +6,7 @@
 
     <groupId>dev.mccue</groupId>
     <artifactId>jdk-httpserver-regexrouter</artifactId>
-    <version>2024.05.10.1</version>
+    <version>2024.05.10.2</version>
     <packaging>jar</packaging>
 
     <name>jdk-httpserver-regexrouter</name>

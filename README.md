@@ -15,7 +15,7 @@ Requires Java 21+
 <dependency>
     <groupId>dev.mccue</groupId>
     <artifactId>jdk-httpserver-regexrouter</artifactId>
-    <version>2024.05.10.1</version>
+    <version>2024.05.10.2</version>
 </dependency>
 ```
 
@@ -23,7 +23,7 @@ Requires Java 21+
 
 ```
 dependencies {
-    implementation("dev.mccue:jdk-httpserver-regexrouter:2024.05.10.1")
+    implementation("dev.mccue:jdk-httpserver-regexrouter:2024.05.10.2")
 }
 ```
 

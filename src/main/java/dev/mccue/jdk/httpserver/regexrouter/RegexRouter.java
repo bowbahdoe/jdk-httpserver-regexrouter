@@ -181,7 +181,7 @@ public final class RegexRouter implements HttpHandler {
         }
 
         public Builder post(Pattern routePattern, HttpHandler handler) {
-            return route("get", routePattern, handler);
+            return route("post", routePattern, handler);
         }
 
         public Builder patch(Pattern routePattern, HttpHandler handler) {
