@@ -8,6 +8,7 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.function.Function;
+import java.util.regex.MatchResult;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -72,21 +73,21 @@ public final class RegexRouter implements HttpHandler {
      *     the interface, so the mutability of the matcher is not relevant.
      * </p>
      */
-    record MatcherRouteParams(Matcher matcher) implements RouteParams {
+    record MatcherRouteParams(MatchResult matchResult) implements RouteParams {
         @Override
         public Optional<String> param(int pos) {
-            if (matcher.groupCount() > pos - 1 || pos < 0) {
+            if (matchResult.groupCount() > pos - 1 || pos < 0) {
                 return Optional.empty();
             }
             else {
-                return Optional.of(URLDecoder.decode(matcher.group(pos + 1), StandardCharsets.UTF_8));
+                return Optional.of(URLDecoder.decode(matchResult.group(pos + 1), StandardCharsets.UTF_8));
             }
         }
 
         @Override
         public Optional<String> param(String name) {
             try {
-                final var namedGroup = matcher.group(name);
+                final var namedGroup = matchResult.group(name);
                 if (namedGroup == null) {
                     return Optional.empty();
                 }
@@ -114,7 +115,7 @@ public final class RegexRouter implements HttpHandler {
             final var pattern = mapping.routePattern();
             final var matcher = pattern.matcher(exchange.getRequestURI().getPath());
             if (method.equalsIgnoreCase(mapping.method) && matcher.matches()) {
-                new MatcherRouteParams(matcher).set(exchange);
+                new MatcherRouteParams(matcher.toMatchResult()).set(exchange);
                 try {
                     mapping.handler.handle(exchange);
                 } catch (Throwable t) {
