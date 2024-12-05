@@ -2,6 +2,7 @@ package dev.mccue.jdk.httpserver.regexrouter;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
+import org.intellij.lang.annotations.Language;
 
 import java.io.IOException;
 import java.net.URLDecoder;
@@ -203,6 +204,50 @@ public final class RegexRouter implements HttpHandler {
 
         public Builder options(Pattern routePattern, HttpHandler handler) {
             return route("options", routePattern, handler);
+        }
+
+        public Builder route(
+                String method,
+                @Language("RegExp") String routePattern,
+                HttpHandler handler
+        ) {
+            return route(method, Pattern.compile(routePattern), handler);
+        }
+
+        public Builder route(
+                List<String> methods,
+                @Language("RegExp") String routePattern,
+                HttpHandler handler
+        ) {
+            return route(methods, Pattern.compile(routePattern), handler);
+        }
+
+        public Builder get(@Language("RegExp") String routePattern, HttpHandler handler) {
+            return get(Pattern.compile(routePattern), handler);
+        }
+
+        public Builder post(@Language("RegExp") String routePattern, HttpHandler handler) {
+            return post(Pattern.compile(routePattern), handler);
+        }
+
+        public Builder patch(@Language("RegExp") String routePattern, HttpHandler handler) {
+            return patch(Pattern.compile(routePattern), handler);
+        }
+
+        public Builder put(@Language("RegExp") String routePattern, HttpHandler handler) {
+            return put(Pattern.compile(routePattern), handler);
+        }
+
+        public Builder head(@Language("RegExp") String routePattern, HttpHandler handler) {
+            return head(Pattern.compile(routePattern), handler);
+        }
+
+        public Builder delete(@Language("RegExp") String routePattern, HttpHandler handler) {
+            return delete(Pattern.compile(routePattern), handler);
+        }
+
+        public Builder options(@Language("RegExp") String routePattern, HttpHandler handler) {
+            return options(Pattern.compile(routePattern), handler);
         }
 
         public Builder errorHandler(Function<Throwable, HttpHandler> errorHandler) {

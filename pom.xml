@@ -6,7 +6,7 @@
 
     <groupId>dev.mccue</groupId>
     <artifactId>jdk-httpserver-regexrouter</artifactId>
-    <version>2024.05.12</version>
+    <version>2024.12.05</version>
     <packaging>jar</packaging>
 
     <name>jdk-httpserver-regexrouter</name>
@@ -25,7 +25,7 @@
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
         </license>
     </licenses>
 
@@ -33,7 +33,7 @@
     <scm>
         <connection>scm:git:git://github.com/bowbahdoe/jdk-httpserver-regexrouter.git</connection>
         <developerConnection>scm:git:ssh://github.com:bowbahdoe/jdk-httpserver-regexrouter.git</developerConnection>
-        <url>http://github.com/bowbahdoe/jdk-httpserver-regexrouter/tree/main</url>
+        <url>https://github.com/bowbahdoe/jdk-httpserver-regexrouter/tree/main</url>
     </scm>
 
 
@@ -44,6 +44,12 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>26.0.0</version>
+        </dependency>
+
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
